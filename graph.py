@@ -66,31 +66,31 @@ class Graph:
         self.vertList[f].addNeighbor(self.vertList[t], cost)
         self.numEdges = self.numEdges + 1
     
+    def updateEdge(self):
+        self.e = {}
+        for v in self.vertList.values():
+            for edge, cost in v.connectedTo.items():
+                self.e[cost] = (v, edge)
+    
     def getVertices(self):
         return self.vertList.keys()
     
     def __iter__(self):
         return iter(self.vertList.values())
+        
+    def addEdge_undirect(self, f, t, cost = 0):
+        if f not in self.vertList:
+            nv = self.addVertex(f)
+        if t not in self.vertList:
+            nv = self.addVertex(t)
+        self.vertList[f].addNeighbor(self.vertList[t], cost)
+        self.vertList[t].addNeighbor(self.vertList[f], cost)
+        self.numEdges = self.numEdges + 1
 
-def main():
-    g = Graph()
-    total_vertice = 7
-    
-    for i in range(total_vertice + 1):
-        g.addVertex(i)
-    
-    g.addEdge(0, 1)
-    g.addEdge(0, 2)
-    g.addEdge(1, 3)
-    g.addEdge(1, 4)
-    g.addEdge(2, 5)
-    g.addEdge(2, 6)
-    g.addEdge(3, 7)
-    g.addEdge(4, 7)
-    g.addEdge(5, 7)
-    g.addEdge(6, 7)
-    
-    return g
-    
-if __name__ == "__main__":
-    main()
+
+def traverse(y):
+    x = y
+    while(x.getPred()):
+        print(x.getId())
+        x = x.getPred()
+    print(x.getId())
