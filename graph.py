@@ -43,6 +43,9 @@ class Graph:
         self.numVertices = 0
         self.numEdges = 0
         
+        #for kruskal's algorhithm
+        self.componentSet = []
+        
     def addVertex(self, key):
         self.numVertices = self.numVertices + 1
         newVertex = Vertex(key)
@@ -86,7 +89,39 @@ class Graph:
         self.vertList[f].addNeighbor(self.vertList[t], cost)
         self.vertList[t].addNeighbor(self.vertList[f], cost)
         self.numEdges = self.numEdges + 1
-
+    
+    # For kruskle's algorhithm
+    def check_component_cycle(self, f, t):
+        '''for component in component set
+        #   if f, t is in the same component
+        #       discarded f, t
+        #   else
+        #       if f, or t is in one of component, then migrate
+                the other together. Or create new component
+        '''
+        for component in self.componentSet:
+            if f and t in component:
+                print "Found Cycle !!"
+                return True
+        return False
+    
+    def merge_vertex_to_component(self, f, t):
+        
+        for component in self.componentSet:
+            #if f | t in component:
+            if f in component:
+                component.append(t)
+            if t in component:
+                component.append(f)
+                #break
+            
+            # what will happan if each vertex have their own component? 
+        
+        
+        
+        self.componentSet.append([f, t])
+                
+            
 
 def traverse(y):
     x = y

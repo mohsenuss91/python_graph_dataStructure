@@ -1,6 +1,7 @@
 from graph import *
 from bfs import bfs
 from dfs import dfs
+from kruskal import *
 
 def main():
     g = Graph()
@@ -18,4 +19,6 @@ def main():
     return g
 
 ng = main()
-
+st = Kruskal(ng)
+st.updateEdge()
+print st.e
